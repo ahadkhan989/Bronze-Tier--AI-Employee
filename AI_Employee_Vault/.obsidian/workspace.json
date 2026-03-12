@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "099503cd12fed669",
+        "id": "78cd39291ffca625",
         "type": "tabs",
         "children": [
           {
-            "id": "2bace195180669cd",
+            "id": "9f72f37543732bfe",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Done/20260312_040747_APPROVAL_SEND_INVOICE_20260312_035838.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "20260312_040747_APPROVAL_SEND_INVOICE_20260312_035838"
             }
           }
         ]
@@ -179,36 +183,41 @@
   },
   "active": "024d2ae1ce9be66f",
   "lastOpenFiles": [
-    "Logs/2026-03-11.json",
-    "Done/FILE_20260311_123715_test_new.txt.md",
+    "Needs_Action/EMAIL_20260312_052235_Still Time to Share 15 BNB.md",
+    "Needs_Action/EMAIL_20260312_052159_Still Time to Share 15 BNB.md",
+    "Approved/APPROVAL_SEND_INVOICE_20260312_042910.md",
+    "Done/20260312_043050_APPROVAL_SEND_INVOICE_20260312_042910.md",
+    "Done/20260312_040747_APPROVAL_SEND_INVOICE_20260312_035838.md",
+    "Pending_Approval/APPROVAL_SEND_EMAIL_20260312_042910.md",
+    "Pending_Approval/APPROVAL_ACCEPT_CONNECTION_20260312_042910.md",
+    "Needs_Action/EMAIL_20260312_042804_Invoice.md",
+    "Needs_Action/EMAIL_20260312_042730_Invoice.md",
+    "Commands_to_run.md",
+    "Needs_Action/EMAIL_20260312_042154_No Subject.md",
+    "Done/20260312_042140_TEST_DRAFT_RESPONSE_FIX.md",
+    "Approved/TEST_DRAFT_RESPONSE_FIX.md",
+    "Pending_Approval/APPROVAL_ACCEPT_CONNECTION_20260312_041940.md",
     "Plans/Plan_FILE_20260311_123715_test_new.txt.md",
-    "Needs_Action/FILE_20260311_123715_test_new.txt.md",
-    "Inbox/Drop/test_new.txt",
-    "Needs_Action/FILE_20260311_122936_test.txt.md",
-    "Needs_Action/FILE_20260311_122931_test.txt.md",
-    "Needs_Action/FILE_20260311_122926_test.txt.md",
-    "Needs_Action/FILE_20260311_122921_test.txt.md",
-    "Needs_Action/FILE_20260311_122916_test.txt.md",
-    "Needs_Action/FILE_20260311_122911_test.txt.md",
-    "Needs_Action/FILE_20260311_122906_test.txt.md",
-    "Inbox/Drop/test.txt",
-    "Needs_Action/FILE_20260311_122227_test.txt.md",
-    "Needs_Action/FILE_20260311_122425_test.txt.md",
-    "Needs_Action/FILE_20260311_122420_test.txt.md",
-    "Needs_Action/FILE_20260311_122414_test.txt.md",
-    "Needs_Action/FILE_20260311_122409_test.txt.md",
-    "Needs_Action/FILE_20260311_122404_test.txt.md",
-    "Needs_Action/FILE_20260311_122247_test.txt.md",
-    "Needs_Action/FILE_20260311_122242_test.txt.md",
-    "Needs_Action/FILE_20260311_122237_test.txt.md",
-    "Needs_Action/FILE_20260311_122232_test.txt.md",
-    "Needs_Action/FILE_20260311_121326_test.txt.md",
-    "Needs_Action/FILE_20260311_122222_test.txt.md",
-    "Needs_Action/FILE_20260311_122217_test.txt.md",
-    "Needs_Action/FILE_20260311_122212_test.txt.md",
-    "Needs_Action/FILE_20260311_122207_test.txt.md",
-    "Inbox/Drop",
-    "Logs/2026-03-11.log",
-    "In_Progress"
+    "Approved/APPROVAL_SEND_INVOICE_20260312_035838.md",
+    "Pending_Approval/APPROVAL_ACCEPT_CONNECTION_20260312_040309.md",
+    "Needs_Action/EMAIL_20260312_035851_Security alert.md",
+    "Needs_Action/EMAIL_20260312_033046_Invoice.md",
+    "Done/20260312_035838_EMAIL_20260312_035822_Security alert.md",
+    "Done/20260312_035838_EMAIL_20260312_035619_Security alert.md",
+    "Done/20260312_035838_EMAIL_20260312_035546_Security alert.md",
+    "Pending_Approval/APPROVAL_ACCEPT_CONNECTION_20260312_035838.md",
+    "Done/20260312_035838_EMAIL_20260312_033046_Invoice.md",
+    "Done/20260312_035838_EMAIL_20260312_033012_Invoice.md",
+    "Needs_Action/EMAIL_20260312_035822_Security alert.md",
+    "token.json",
+    "Logs/2026-03-12.json",
+    "linkedin_session/Default/1964b274-2149-49c9-8187-7668244cff6a.tmp",
+    "linkedin_session/Default/Code Cache/js/62b20ce86bc71628_0",
+    "linkedin_session/Default/Code Cache/js/c349ecc696cf8831_0",
+    "linkedin_session/Default/Code Cache/js/1ca76cb23b37ebbc_0",
+    "linkedin_session/Default/Cache/Cache_Data/f_0000e0",
+    "linkedin_session/Default/Code Cache/js/ef85d993a0d77a70_0",
+    "linkedin_session/Default/Cache/Cache_Data/f_0000df",
+    "linkedin_session/Default/Cache/Cache_Data/f_0000de"
   ]
 }

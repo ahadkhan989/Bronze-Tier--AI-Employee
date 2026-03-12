@@ -221,33 +221,149 @@ class Orchestrator:
         """
         if not self.approved.exists():
             return 0
-        
+
         processed = 0
+        sent = 0
+        failed = 0
+        
         for filepath in self.approved.iterdir():
             if filepath.suffix != '.md':
                 continue
-            
+
             try:
                 # Read the approval file
-                content = filepath.read_text()
+                content = filepath.read_text(encoding='utf-8')
                 
+                # Extract email details
+                action_type = self.extract_field(content, 'action')
+                to_email = self.extract_field(content, 'to')
+                subject = self.extract_field(content, 'subject')
+                
+                print(f"\nProcessing: {filepath.name}")
+                print(f"  Action: {action_type}")
+                print(f"  To: {to_email}")
+                print(f"  Subject: {subject}")
+                
+                # Execute the action based on type
+                if action_type in ['send_email', 'send_invoice', 'accept_connection']:
+                    # Extract the response body from the approval file
+                    response_body = self.extract_response_body(content)
+                    
+                    print(f"  [INFO] Sending email via Gmail API...")
+                    
+                    # Try to send using email_sender
+                    try:
+                        from watchers.email_sender import EmailSender
+                        
+                        sender = EmailSender(
+                            credentials_path='credentials.json',
+                            token_path=str(self.vault_path / 'token.json')
+                        )
+                        
+                        if sender.connect():
+                            success = sender.send_email(
+                                to=to_email,
+                                subject=subject,
+                                body=response_body
+                            )
+                            
+                            if success:
+                                print(f"  [OK] Email sent successfully!")
+                            else:
+                                print(f"  [ERROR] Failed to send email")
+                                failed += 1
+                                continue
+                        else:
+                            print(f"  [ERROR] Could not connect to Gmail API")
+                            print(f"  [INFO] Run: python watchers/email_sender.py authenticate")
+                    except ImportError:
+                        print(f"  [INFO] Email sender not available")
+                    except Exception as e:
+                        print(f"  [ERROR] Email send error: {e}")
+                    
                 # Move to Done with timestamp
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                 dest = self.done / f"{timestamp}_{filepath.name}"
                 shutil.move(str(filepath), str(dest))
                 
+                print(f"  [OK] Moved to Done/")
+                
                 self.log_action('approval_processed', 'orchestrator',
-                               filepath.name, {'destination': str(dest)},
+                               filepath.name, {
+                                   'destination': str(dest),
+                                   'action_type': action_type,
+                                   'to': to_email
+                               },
                                'approved', 'success')
                 processed += 1
-                
+                sent += 1
+
             except Exception as e:
+                print(f"  [ERROR] {e}")
                 self.log_action('approval_process_error', 'orchestrator',
                                filepath.name, {'error': str(e)},
                                'approved', 'failure')
-        
+                failed += 1
+
+        print(f"\n{'='*60}")
+        print(f"SUMMARY: Processed={processed}, Sent={sent}, Failed={failed}")
+        print(f"{'='*60}")
         return processed
     
+    def extract_field(self, content: str, field: str) -> str:
+        """Extract a field from markdown frontmatter."""
+        lines = content.split('\n')
+        in_frontmatter = False
+        
+        for line in lines:
+            if line.strip() == '---':
+                if not in_frontmatter:
+                    in_frontmatter = True
+                else:
+                    break
+                continue
+            
+            if in_frontmatter and line.startswith(f'{field}:'):
+                return line.split(':', 1)[1].strip()
+        
+        return ''
+    
+    def extract_response_body(self, content: str) -> str:
+        """Extract the response body from markdown content."""
+        lines = content.split('\n')
+        
+        # Find the "## Draft Response" section
+        in_draft = False
+        body_lines = []
+        
+        for i, line in enumerate(lines):
+            # Start capturing after "## Draft Response"
+            if '## Draft Response' in line:
+                in_draft = True
+                continue
+            
+            # Stop capturing at next section
+            if in_draft and line.strip().startswith('##'):
+                break
+            
+            # Capture the draft content
+            if in_draft:
+                # Skip empty lines at the start
+                if not body_lines and not line.strip():
+                    continue
+                body_lines.append(line)
+        
+        # Clean up and return
+        result = '\n'.join(body_lines).strip()
+        
+        # Remove any remaining markdown artifacts
+        if result.startswith('---'):
+            end = result.find('---', 3)
+            if end > 0:
+                result = result[end+3:].strip()
+        
+        return result
+
     def process_rejections(self):
         """
         Process files in the Rejected folder.

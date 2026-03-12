@@ -1,0 +1,61 @@
+2026-03-12 00:19:41,206 - google_auth_oauthlib.flow - INFO - Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=245138943169-0iagtc2lj90q30mqvlmg6htaeud8i0ff.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly&state=ndrVcZfQB9swPnwzd2Y7XwJaFM97Ub&code_challenge=ouh0MeS5nEQCVnaC72FVhXNtkZjtsVGVeIFIz1l5dqE&code_challenge_method=S256&access_type=offline
+2026-03-12 00:19:55,643 - google_auth_oauthlib.flow - INFO - "GET /?state=ndrVcZfQB9swPnwzd2Y7XwJaFM97Ub&iss=https://accounts.google.com&code=4/0AfrIepDuviDsmL9IahSV68tksZRAZ9BbS67lO5q4TIjKZL7kaCFJlDAtjNLdtYOGE-QfIw&scope=https://www.googleapis.com/auth/gmail.readonly HTTP/1.1" 200 65
+2026-03-12 02:27:18,140 - GmailWatcher - INFO - Starting GmailWatcher
+2026-03-12 02:27:18,142 - GmailWatcher - INFO - Vault path: AI_Employee_Vault
+2026-03-12 02:27:18,146 - GmailWatcher - INFO - Check interval: 60s
+2026-03-12 02:27:18,147 - GmailWatcher - INFO - Priority only: False
+2026-03-12 02:27:18,960 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-03-12 02:27:19,032 - GmailWatcher - INFO - Connected to Gmail API
+2026-03-12 02:27:24,667 - GmailWatcher - INFO - Found 5 new email(s)
+2026-03-12 02:27:24,671 - GmailWatcher - INFO - Created action file: EMAIL_20260312_022724_Updates to our Data Processing and Service Level A.md [NORMAL]
+2026-03-12 02:27:24,674 - GmailWatcher - INFO - Created action file: EMAIL_20260312_022724_eAlert - Movement of Securities against Market Tra.md [NORMAL]
+2026-03-12 02:27:24,677 - GmailWatcher - INFO - Created action file: EMAIL_20260312_022724_You have an invitation.md [NORMAL]
+2026-03-12 02:27:24,680 - GmailWatcher - INFO - Created action file: EMAIL_20260312_022724_I want to connect.md [NORMAL]
+2026-03-12 02:27:24,690 - GmailWatcher - INFO - Created action file: EMAIL_20260312_022724_I want to connect.md [NORMAL]
+2026-03-12 02:27:24,691 - GmailWatcher - ERROR - Fatal error: name 'time' is not defined
+2026-03-12 02:35:29,108 - GmailWatcher - INFO - Starting GmailWatcher
+2026-03-12 02:35:29,109 - GmailWatcher - INFO - Vault path: AI_Employee_Vault
+2026-03-12 02:35:29,109 - GmailWatcher - INFO - Check interval: 60s
+2026-03-12 02:35:29,109 - GmailWatcher - INFO - Priority only: False
+2026-03-12 02:35:29,121 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-03-12 02:35:29,125 - GmailWatcher - INFO - Connected to Gmail API
+2026-03-12 02:38:07,044 - GmailWatcher - INFO - Starting GmailWatcher
+2026-03-12 02:38:07,044 - GmailWatcher - INFO - Vault path: AI_Employee_Vault
+2026-03-12 02:38:07,045 - GmailWatcher - INFO - Check interval: 60s
+2026-03-12 02:38:07,045 - GmailWatcher - INFO - Priority only: False
+2026-03-12 02:38:07,060 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-03-12 02:38:07,065 - GmailWatcher - INFO - Connected to Gmail API
+2026-03-12 02:40:43,915 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 02:40:43,918 - GmailWatcher - INFO - Created action file: EMAIL_20260312_024043_Invoice for school funds.md [HIGH]
+2026-03-12 02:41:16,624 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 02:41:16,629 - GmailWatcher - INFO - Created action file: EMAIL_20260312_024116_Invoice for school funds.md [HIGH]
+2026-03-12 02:58:20,073 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 02:58:20,076 - GmailWatcher - INFO - Created action file: EMAIL_20260312_025820_Urgent.md [HIGH]
+2026-03-12 02:58:53,881 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 02:58:53,884 - GmailWatcher - INFO - Created action file: EMAIL_20260312_025853_Urgent.md [HIGH]
+2026-03-12 03:30:12,661 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:30:12,665 - GmailWatcher - INFO - Created action file: EMAIL_20260312_033012_Invoice.md [HIGH]
+2026-03-12 03:30:46,418 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:30:46,422 - GmailWatcher - INFO - Created action file: EMAIL_20260312_033046_Invoice.md [HIGH]
+2026-03-12 03:55:18,735 - google_auth_oauthlib.flow - INFO - Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=245138943169-0iagtc2lj90q30mqvlmg6htaeud8i0ff.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly&state=0IE33NlQTW6mFrciX5ulSuHV6eSyYM&code_challenge=xUcUf2WOfnfhkj0ZWIE7pPhAQa_QlhVD9HKvOdvcYvU&code_challenge_method=S256&access_type=offline
+2026-03-12 03:55:26,191 - google_auth_oauthlib.flow - INFO - "GET /?state=0IE33NlQTW6mFrciX5ulSuHV6eSyYM&iss=https://accounts.google.com&code=4/0AfrIepAJGQu8GVMdZmAPep_4M093dMBthaXZ5CI0-0fybUlkK1jbMMRHli2H7LycHgzQIQ&scope=https://www.googleapis.com/auth/gmail.readonly HTTP/1.1" 200 65
+2026-03-12 03:55:46,625 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:55:46,629 - GmailWatcher - INFO - Created action file: EMAIL_20260312_035546_Security alert.md [NORMAL]
+2026-03-12 03:56:19,372 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:56:19,437 - GmailWatcher - INFO - Created action file: EMAIL_20260312_035619_Security alert.md [NORMAL]
+2026-03-12 03:57:56,766 - google_auth_oauthlib.flow - INFO - Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=245138943169-0iagtc2lj90q30mqvlmg6htaeud8i0ff.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.readonly+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fgmail.send&state=7m6xfp9J56nIwv40CpPKR9G3BRfrKL&code_challenge=lsU8lTodvReceu4JpCy4afojp4FwxQ_I6OutPEaUPYA&code_challenge_method=S256&access_type=offline
+2026-03-12 03:58:05,569 - google_auth_oauthlib.flow - INFO - "GET /?state=7m6xfp9J56nIwv40CpPKR9G3BRfrKL&iss=https://accounts.google.com&code=4/0AfrIepB36-Vmi27vyF1IwaEZn4XMfufjw4RrlTyXePtrVsBBLe2JFJsTo0Vc2y20Ts_jQA&scope=https://www.googleapis.com/auth/gmail.readonly%20https://www.googleapis.com/auth/gmail.send HTTP/1.1" 200 65
+2026-03-12 03:58:22,349 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:58:22,351 - GmailWatcher - INFO - Created action file: EMAIL_20260312_035822_Security alert.md [NORMAL]
+2026-03-12 03:58:51,127 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 03:58:51,137 - GmailWatcher - INFO - Created action file: EMAIL_20260312_035851_Security alert.md [NORMAL]
+2026-03-12 04:21:54,720 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 04:21:54,731 - GmailWatcher - INFO - Created action file: EMAIL_20260312_042154_No Subject.md [NORMAL]
+2026-03-12 04:27:30,360 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 04:27:30,366 - GmailWatcher - INFO - Created action file: EMAIL_20260312_042730_Invoice.md [HIGH]
+2026-03-12 04:28:04,041 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 04:28:04,045 - GmailWatcher - INFO - Created action file: EMAIL_20260312_042804_Invoice.md [HIGH]
+2026-03-12 05:21:59,786 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 05:21:59,789 - GmailWatcher - INFO - Created action file: EMAIL_20260312_052159_Still Time to Share 15 BNB.md [NORMAL]
+2026-03-12 05:22:35,532 - GmailWatcher - INFO - Found 1 new email(s)
+2026-03-12 05:22:35,535 - GmailWatcher - INFO - Created action file: EMAIL_20260312_052235_Still Time to Share 15 BNB.md [NORMAL]

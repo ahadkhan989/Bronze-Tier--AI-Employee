@@ -11,21 +11,28 @@ from pathlib import Path
 
 def run_qwen_command(vault_path: str, prompt: str):
     """Run a Qwen Code command in the specified directory."""
-    try:
-        result = subprocess.run(
-            ["qwen", prompt],
-            cwd=vault_path,
-            capture_output=False,
-            text=True
-        )
-        return result.returncode == 0
-    except FileNotFoundError:
-        print("Error: 'qwen' command not found.")
-        print("Make sure Qwen Code is installed and in your PATH.")
-        return False
-    except Exception as e:
-        print(f"Error running Qwen Code: {e}")
-        return False
+    print("\n" + "=" * 70)
+    print("QWEN CODE INSTRUCTIONS")
+    print("=" * 70)
+    print("\nOpen a NEW terminal and run:")
+    print(f"\n  cd {vault_path}")
+    print(f"  claude \"{prompt}\"")
+    print("\nOr if you have Claude Code installed:")
+    print(f"  claude \"{prompt}\"")
+    print("\n" + "=" * 70)
+    print("\nNOTE: The qwen_processor.py cannot directly call Qwen Code.")
+    print("You need to run Qwen Code manually in a separate terminal.")
+    print("\nAlternatively, you can process files manually:")
+    print("  1. Open Obsidian")
+    print("  2. Go to Needs_Action/ folder")
+    print("  3. Review each file")
+    print("  4. Create replies/plans manually")
+    print("  5. Move processed files to Done/")
+    print("=" * 70 + "\n")
+    
+    # For now, just show instructions
+    # In the future, this could call an API if available
+    return True
 
 
 def process_needs_action(vault_path: str):
