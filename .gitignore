@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ===========================================
+# SENSITIVE FILES - NEVER COMMIT THESE
+# ===========================================
+
+# Google OAuth Credentials
+credentials.json
+token.json
+*.json containing credentials
+
+# AI Employee Vault - Sensitive
+AI_Employee_Vault/token.json
+AI_Employee_Vault/linkedin_session/
+AI_Employee_Vault/whatsapp_session/
+AI_Employee_Vault/Logs/
+AI_Employee_Vault/Inbox/
+AI_Employee_Vault/Needs_Action/
+AI_Employee_Vault/Pending_Approval/
+AI_Employee_Vault/Approved/
+AI_Employee_Vault/Rejected/
+
+# Environment Variables
+.env
+.env.local
+.env.production
+*.env
+
+# API Keys
+*_key.json
+*_secret.json
+*_credentials.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Screenshots (from debugging)
+*.png
+*.jpg
+*.jpeg
+!README_*.png
+
+# Test files
+test_*.md
+TEST_*.md
+
+# ===========================================
+# FILES TO COMMIT (Vault Structure)
+# ===========================================
+# Keep these tracked for structure:
+# - AI_Employee_Vault/Dashboard.md
+# - AI_Employee_Vault/Company_Handbook.md
+# - AI_Employee_Vault/Business_Goals.md
+# - AI_Employee_Vault/Templates/
+# - AI_Employee_Vault/Done/ (completed items)
+# - AI_Employee_Vault/Briefings/
+# - AI_Employee_Vault/Plans/ (approved plans)
+# - AI_Employee_Vault/Accounting/
+# - AI_Employee_Vault/Invoices/
