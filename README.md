@@ -1,358 +1,479 @@
-# 🤖 Personal AI Employee - Bronze Tier
+# 🤖 Personal AI Employee -- FTEs
 
 > **Tagline:** Your life and business on autopilot. Local-first, agent-driven, human-in-the-loop.
-
-This is a **Bronze-Tier implementation** of the Personal AI Employee hackathon project. It provides the foundational layer for an autonomous digital FTE (Full-Time Equivalent) that manages personal and business affairs using **Qwen Code** as the reasoning engine and **Obsidian** as the knowledge base/dashboard.
+>
+> **Build a Digital FTE (Full-Time Equivalent) that works 24/7 for you!**
 
 ---
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Usage](#usage)
-- [Folder Structure](#folder-structure)
-- [Troubleshooting](#troubleshooting)
-- [Next Steps](#next-steps)
+- [Overview](#-overview)
+- [Tier Comparison](#-tier-comparison)
+- [🥉 Bronze Tier - Foundation](#-bronze-tier---foundation)
+- [🥈 Silver Tier - Functional Assistant](#-silver-tier---functional-assistant)
+- [🥇 Gold Tier - Autonomous Employee](#-gold-tier---autonomous-employee)
+- [Getting Started](#-getting-started)
+- [Documentation](#-documentation)
+- [Resources & Meetings](#-resources--meetings)
 
 ---
 
-## ✨ Features
+## 🎯 Overview
 
-### Bronze Tier Deliverables
+The **Personal AI Employee** is an autonomous digital FTE (Full-Time Equivalent) that manages your personal and business affairs 24/7. Built with **Claude Code/Qwen Code** as the reasoning engine and **Obsidian** as the knowledge base/dashboard.
 
-- ✅ **Obsidian Vault** with Dashboard.md and Company_Handbook.md
-- ✅ **File System Watcher** - Monitors a drop folder for new files
-- ✅ **Qwen Code Integration** - Reads from and writes to the vault
-- ✅ **Basic Folder Structure** - /Inbox, /Needs_Action, /Done, etc.
-- ✅ **Orchestrator** - Master process for coordination
-- ✅ **Action Templates** - Pre-built templates for common actions
-
-### What It Can Do
-
-1. **File Drop Processing**: Drop any file into the monitored folder → AI creates an action item
-2. **Task Tracking**: Organize tasks through pending → in-progress → done workflow
-3. **Approval System**: Human-in-the-loop for sensitive actions
-4. **Daily Briefings**: Auto-generated summaries of pending work
-5. **Audit Logging**: All actions logged for review
-
----
-
-## 🏗️ Architecture
+### Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    EXTERNAL INPUT                           │
-│                    (File Drop)                              │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
+│                    INPUT SOURCES                            │
+│  Gmail  │  WhatsApp  │  Facebook  │  Twitter  │  Files     │
+└────┬────┴─────┬──────┴─────┬──────┴────┬──────┴─────┬──────┘
+     │          │            │          │            │
+     ▼          ▼            ▼          ▼            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 PERCEPTION LAYER                            │
-│              FileSystemWatcher.py                           │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  OBSIDIAN VAULT                             │
-│  /Needs_Action  →  /Plans  →  /Done                         │
-│  /Pending_Approval  →  /Approved  →  /Rejected              │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 REASONING LAYER                             │
-│                    QWEN CODE                                │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 ORCHESTRATION                               │
-│                 orchestrator.py                             │
-│   - Dashboard Updates   - Approval Processing               │
-│   - Daily Briefings     - Logging                           │
+│                    WATCHERS (Continuous)                    │
+│  Monitor inputs → Create action files in Needs_Action/      │
 └─────────────────────────────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  QWEN CODE (Reasoning)                      │
+│  Read → Think → Plan → Write → Request Approval             │
+└─────────────────────────────────────────────────────────────┘
+     │
+     ├─────────────┬─────────────────┐
+     ▼             ▼                 ▼
+┌─────────┐  ┌────────────┐   ┌──────────────┐
+│ Simple  │  │  Pending_  │   │    Plans/    │
+│ Actions │  │  Approval/ │   │  Multi-step  │
+│ → Done  │  │            │   │  tracking    │
+└─────────┘  └─────┬──────┘   └──────────────┘
+                  │
+                  ▼
+            ┌─────────┐
+            │ Human   │
+            │ Review  │
+            └────┬────┘
+                 │
+          ┌──────┴──────┐
+          ▼             ▼
+     ┌────────┐   ┌──────────┐
+     │Approved│   │ Rejected │
+     └───┬────┘   └──────────┘
+         │
+         ▼
+    ┌─────────┐
+    │ Execute │
+    │ & Post  │
+    └────┬────┘
+         │
+         ▼
+    ┌─────────┐
+    │  Done/  │
+    │  Logs/  │
+    └─────────┘
 ```
 
 ---
 
-## 📦 Prerequisites
+## 📊 Tier Comparison
 
-| Component | Version | Purpose |
-|-----------|---------|---------|
-| [Python](https://www.python.org/downloads/) | 3.10+ | Watcher scripts & orchestrator |
-| [Qwen Code](https://github.com/anthropics/claude-code) | Active subscription | Reasoning engine |
-| [Obsidian](https://obsidian.md/download) | v1.10.6+ (free) | Knowledge base & dashboard |
-| [Node.js](https://nodejs.org/) | v18+ LTS | MCP servers (optional for Silver+) |
-
-### Optional (for enhanced functionality)
-
-- **watchdog** (Python package) - Efficient file system monitoring
-- **Git** - Version control for your vault
+| Feature | 🥉 Bronze | 🥈 Silver | 🥇 Gold |
+|---------|-----------|-----------|---------|
+| **File Monitoring** | ✅ | ✅ | ✅ |
+| **Gmail Integration** | ❌ | ✅ | ✅ |
+| **LinkedIn Automation** | ❌ | ✅ | ✅ |
+| **WhatsApp Monitoring** | ❌ | ✅ | ✅ |
+| **Facebook/Instagram** | ❌ | ❌ | ✅ |
+| **Twitter Integration** | ❌ | ❌ | ✅ |
+| **Odoo ERP Integration** | ❌ | ❌ | ✅ |
+| **Auto-Response Generation** | ❌ | ❌ | ✅ |
+| **Docker Support** | ❌ | ❌ | ✅ |
+| **Ralph Wiggum Loop** | ❌ | ❌ | ✅ |
+| **Weekly CEO Briefing** | ❌ | ✅ | ✅ |
+| **Estimated Setup Time** | 8-12 hrs | 20-30 hrs | 40+ hrs |
 
 ---
 
-## 🚀 Installation
+## 🥉 Bronze Tier - Foundation
 
-### 1. Clone/Navigate to Project
+**Estimated Time:** 8-12 hours
+
+### ✨ Features
+
+- ✅ **Obsidian Vault** with Dashboard & Company Handbook
+- ✅ **File System Watcher** - Monitor drop folder for new files
+- ✅ **Qwen Code Integration** - AI reads/writes to vault
+- ✅ **Basic Folder Structure** - Inbox, Needs_Action, Done, etc.
+- ✅ **Orchestrator** - Master coordination process
+- ✅ **Approval Workflow** - Human-in-the-loop for sensitive actions
+- ✅ **Daily Briefings** - Auto-generated summaries
+
+### 📁 What You Get
+
+| Component | Purpose |
+|-----------|---------|
+| `watchers/filesystem_watcher.py` | Monitor file drop folder |
+| `orchestrator.py` | Coordinate all processes |
+| `qwen_processor.py` | Qwen Code helper |
+| `AI_Employee_Vault/` | Obsidian vault structure |
+
+### 🚀 Quick Start
 
 ```bash
-cd "D:\code\Hackathon Project\Bronze-Tier--AI-Employee"
-```
-
-### 2. Install Python Dependencies
-
-```bash
-# Create virtual environment (optional but recommended)
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
-
-# Install dependencies
+# 1. Install dependencies
 pip install watchdog
-```
 
-### 3. Open Vault in Obsidian
-
-1. Open Obsidian
-2. Click "Open folder as vault"
-3. Select the `AI_Employee_Vault` folder
-4. You should see Dashboard.md, Company_Handbook.md, etc.
-
-### 4. Verify Qwen Code
-
-```bash
-qwen --version
-```
-
----
-
-## ⚡ Quick Start
-
-### Step 1: Initialize the System
-
-```bash
-# Update dashboard and check status
-python orchestrator.py AI_Employee_Vault --status
-```
-
-### Step 2: Start the File Watcher
-
-```bash
-# Start watching the drop folder
+# 2. Start file watcher
 python watchers/filesystem_watcher.py AI_Employee_Vault
-```
 
-Keep this running in a terminal window. It will monitor for new files.
-
-### Step 3: Test with a File Drop
-
-1. Create a test file (e.g., `test_document.txt`)
-2. Drop it into `AI_Employee_Vault/Inbox/Drop/`
-3. Watch the watcher create an action file in `Needs_Action/`
-
-### Step 4: Process with Qwen Code
-
-```bash
-# Navigate to vault directory
+# 3. Process with Qwen Code
 cd AI_Employee_Vault
+claude "Review all files in Needs_Action folder"
 
-# Run Qwen Code to process pending items
-qwen "Review all files in Needs_Action folder. For each file, create a plan and suggest next steps. Move completed items to Done folder."
-```
-
-### Step 5: Update Dashboard
-
-```bash
-# Back in project root
+# 4. Update dashboard
+cd ..
 python orchestrator.py AI_Employee_Vault --update-dashboard
 ```
 
----
-
-## 📖 Usage
-
-### Daily Workflow
-
-1. **Morning**: Check Dashboard.md for pending items
-2. **Throughout day**: Drop files into `Inbox/Drop/` for processing
-3. **Review**: Check `Needs_Action/` folder periodically
-4. **Approve**: Move files from `Pending_Approval/` to `Approved/` when ready
-5. **Process**: Run Qwen Code on pending items
-6. **Evening**: Generate daily briefing
-
-### Key Commands
+### 📖 Key Commands
 
 ```bash
 # Show system status
 python orchestrator.py AI_Employee_Vault --status
 
-# Process approved files
-python orchestrator.py AI_Employee_Vault --process-approvals
-
 # Generate daily briefing
 python orchestrator.py AI_Employee_Vault --briefing
 
-# Start file watcher (polling mode)
-python watchers/filesystem_watcher.py AI_Employee_Vault
-
-# Start file watcher (watchdog mode - more efficient)
-python watchers/filesystem_watcher.py AI_Employee_Vault --watchdog
-
-# Process with Qwen Code (using helper script)
+# Process with Qwen Code
 python qwen_processor.py process AI_Employee_Vault
 
-# Run custom Qwen Code prompt
-python qwen_processor.py custom "Your custom prompt here" AI_Employee_Vault
-```
-
-### Qwen Code Prompts
-
-Instead of typing full prompts, use the helper script:
-
-```bash
-# Process all pending items
-python qwen_processor.py process AI_Employee_Vault
-
-# Generate a plan for complex tasks
-python qwen_processor.py plan AI_Employee_Vault
-
-# Daily review
-python qwen_processor.py review AI_Employee_Vault
-
-# Approval processing
-python qwen_processor.py approvals AI_Employee_Vault
-
-# Full system audit
-python qwen_processor.py audit AI_Employee_Vault
-
-# Custom prompt
-python qwen_processor.py custom "Your custom prompt here" AI_Employee_Vault
+# Custom Qwen prompt
+python qwen_processor.py custom "Your prompt here" AI_Employee_Vault
 ```
 
 ---
 
-## 📁 Folder Structure
+## 🥈 Silver Tier - Functional Assistant
 
+**Estimated Time:** 20-30 hours
+
+### ✨ Features (Everything in Bronze +)
+
+- ✅ **Gmail Watcher** - Monitor Gmail for important emails
+- ✅ **LinkedIn Watcher** - Monitor LinkedIn notifications & messages
+- ✅ **LinkedIn Poster** - Auto-post content to LinkedIn
+- ✅ **Email Sender** - Send emails via Gmail API
+- ✅ **WhatsApp Watcher** - Monitor WhatsApp Web (Playwright)
+- ✅ **Scheduler** - Automated tasks via cron/Task Scheduler
+- ✅ **Weekly Briefings** - CEO briefing generation
+
+### 📁 What You Get
+
+| Component | Purpose |
+|-----------|---------|
+| `watchers/gmail_watcher.py` | Monitor Gmail |
+| `watchers/linkedin_watcher.py` | Monitor LinkedIn |
+| `watchers/linkedin_poster.py` | Post to LinkedIn |
+| `watchers/email_sender.py` | Send emails |
+| `watchers/whatsapp_watcher.py` | Monitor WhatsApp |
+| `scheduler.py` | Task scheduling |
+
+### 🚀 Quick Start
+
+```bash
+# 1. Install dependencies
+pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip install playwright
+playwright install chromium
+pip install schedule
+
+# 2. Authenticate Gmail
+python watchers/gmail_watcher.py AI_Employee_Vault --authenticate
+
+# 3. Setup LinkedIn session
+python watchers/linkedin_watcher.py AI_Employee_Vault --setup-session
+
+# 4. Start watchers
+python watchers/gmail_watcher.py AI_Employee_Vault --interval 120
+python watchers/linkedin_watcher.py AI_Employee_Vault --interval 300
+
+# 5. Start scheduler
+python scheduler.py
 ```
-Bronze-Tier--AI-Employee/
-├── AI_Employee_Vault/           # Obsidian vault (open this in Obsidian)
-│   ├── Dashboard.md             # Real-time status dashboard
-│   ├── Company_Handbook.md      # Rules of engagement
-│   ├── Business_Goals.md        # Objectives and metrics
-│   ├── Inbox/                   # Raw incoming items
-│   │   └── Drop/                # Drop files here for processing
-│   ├── Needs_Action/            # Items requiring processing
-│   ├── In_Progress/             # Currently being worked on
-│   ├── Pending_Approval/        # Awaiting human approval
-│   ├── Approved/                # Approved actions (ready to process)
-│   ├── Rejected/                # Rejected items
-│   ├── Done/                    # Completed tasks
-│   ├── Logs/                    # System logs
-│   ├── Briefings/               # Daily/weekly briefings
-│   ├── Accounting/              # Financial records
-│   ├── Invoices/                # Invoice files
-│   └── Templates/               # Action file templates
-│       ├── Email_Action_Template.md
-│       ├── Approval_Request_Template.md
-│       ├── Plan_Template.md
-│       └── Task_Template.md
-│
-├── watchers/
-│   ├── base_watcher.py          # Abstract base class
-│   └── filesystem_watcher.py    # File drop watcher
-│
-├── orchestrator.py              # Master coordination script
-├── README.md                    # This file
-└── QWEN.md                      # Project context for AI assistants
+
+### 📖 Key Commands
+
+```bash
+# Gmail Watcher
+python watchers/gmail_watcher.py AI_Employee_Vault --interval 120
+
+# LinkedIn Poster
+python watchers/linkedin_poster.py AI_Employee_Vault \
+  --content "Your post content" \
+  --require-approval
+
+# Process approved emails
+python orchestrator.py AI_Employee_Vault --process-approvals
+
+# Weekly briefing
+python orchestrator.py AI_Employee_Vault --weekly-briefing
 ```
 
-### Folder Purposes
+### 🔐 Required Setup
 
-| Folder | Purpose |
-|--------|---------|
-| `/Inbox/Drop` | Drop files here for AI processing |
-| `/Needs_Action` | New action items created by watchers |
-| `/In_Progress` | Items currently being worked on |
-| `/Pending_Approval` | Actions awaiting your decision |
-| `/Approved` | Approved actions ready to execute |
-| `/Rejected` | Declined actions (archived) |
-| `/Done` | Completed tasks |
+1. **Gmail API:**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Enable Gmail API
+   - Download `credentials.json`
+   - Run: `python watchers/gmail_watcher.py AI_Employee_Vault --authenticate`
+
+2. **LinkedIn:**
+   - Run: `python watchers/linkedin_watcher.py AI_Employee_Vault --setup-session`
+   - Login to LinkedIn in the browser window
+   - Session saved automatically
 
 ---
 
-## 🔧 Troubleshooting
+## 🥇 Gold Tier - Autonomous Employee
 
-### File Watcher Not Detecting Files
+**Estimated Time:** 40+ hours
+
+### ✨ Features (Everything in Silver +)
+
+- ✅ **Facebook/Instagram Integration** - Graph API (not Playwright)
+- ✅ **Twitter (X) Integration** - Monitor & post tweets
+- ✅ **Odoo ERP Integration** - Docker Compose setup
+- ✅ **Odoo MCP Server** - Invoice/customer management
+- ✅ **Auto-Response Generation** - AI drafts responses automatically
+- ✅ **Ralph Wiggum Loop** - Autonomous multi-step task completion
+- ✅ **Weekly CEO Briefing** - With Odoo financial data
+- ✅ **Error Recovery** - Retry logic & graceful degradation
+- ✅ **Comprehensive Logging** - Full audit trail
+
+### 📁 What You Get
+
+| Component | Purpose |
+|-----------|---------|
+| `watchers/facebook_watcher.py` | Facebook monitoring (Graph API) |
+| `watchers/facebook_poster.py` | Facebook/Instagram posting |
+| `watchers/twitter_watcher.py` | Twitter monitoring |
+| `watchers/twitter_poster.py` | Twitter posting |
+| `watchers/odoo_sync_watcher.py` | Odoo ERP sync |
+| `mcp_servers/odoo_mcp_server.py` | Odoo MCP server |
+| `ralph_wiggum_loop.py` | Persistence loop |
+| `auto_generate_response.py` | Auto-response generator |
+| `docker-compose.yml` | Odoo + PostgreSQL setup |
+
+### 🚀 Quick Start
 
 ```bash
-# Check if watchdog is installed
+# 1. Install dependencies
+pip install facebook-business tweepy python-dotenv
+pip install docker-compose
+
+# 2. Start Odoo with Docker
+docker-compose up -d odoo postgres
+
+# 3. Configure .env file
+# Copy .env.example to .env and fill in your credentials
+
+# 4. Authenticate Facebook
+python watchers/facebook_watcher.py AI_Employee_Vault --test-connection
+
+# 5. Start all watchers
+python watchers/facebook_watcher.py AI_Employee_Vault --interval 60
+python watchers/twitter_watcher.py AI_Employee_Vault --interval 300
+python watchers/odoo_sync_watcher.py AI_Employee_Vault --interval 600
+
+# 6. Start Ralph Wiggum loop
+python ralph_wiggum_loop.py AI_Employee_Vault "Process all files"
+```
+
+### 📖 Key Commands
+
+```bash
+# Facebook Watcher
+python watchers/facebook_watcher.py AI_Employee_Vault --interval 60
+
+# Facebook Poster (with auto-generated responses)
+python watchers/facebook_poster.py AI_Employee_Vault --process-replies
+
+# Twitter Poster
+python watchers/twitter_poster.py AI_Employee_Vault \
+  --content "Your tweet" \
+  --platform twitter
+
+# Odoo Sync
+python watchers/odoo_sync_watcher.py AI_Employee_Vault --sync-customers
+python watchers/odoo_sync_watcher.py AI_Employee_Vault --generate-report
+
+# Auto-generate responses
+python auto_generate_response.py AI_Employee_Vault
+
+# Ralph Wiggum Loop
+python ralph_wiggum_loop.py AI_Employee_Vault "Process all files in Needs_Action"
+
+# Weekly CEO Briefing (with Odoo data)
+python orchestrator.py AI_Employee_Vault --weekly-briefing
+```
+
+### 🔐 Required Setup
+
+1. **Facebook Graph API:**
+   - Go to [Facebook Developers](https://developers.facebook.com/)
+   - Create app & get Page Access Token
+   - Add permissions: `pages_manage_posts`, `pages_read_engagement`
+   - Update `.env` with `FACEBOOK_ACCESS_TOKEN`
+
+2. **Twitter API:**
+   - Go to [Twitter Developer Portal](https://developer.twitter.com/)
+   - Create app & get API keys
+   - Update `.env` with Twitter credentials
+
+3. **Odoo ERP:**
+   ```bash
+   docker-compose up -d odoo postgres
+   # Access at: http://localhost:8069
+   # Login: admin / admin
+   ```
+
+---
+
+## 🎯 Getting Started
+
+### Step 1: Choose Your Tier
+
+| If you want to... | Start with... |
+|-------------------|---------------|
+| Learn the basics | 🥉 Bronze Tier |
+| Automate email & social media | 🥈 Silver Tier |
+| Full business automation | 🥇 Gold Tier |
+
+### Step 2: Install Prerequisites
+
+**Required:**
+- Python 3.10+
+- Qwen Code / Claude Code subscription
+- Obsidian (free)
+- Git
+
+**Optional (for Silver/Gold):**
+- Node.js v18+
+- Docker Desktop (for Odoo)
+
+### Step 3: Setup Your Tier
+
+**Bronze Tier:**
+```bash
 pip install watchdog
-
-# Run with verbose logging
-python watchers/filesystem_watcher.py AI_Employee_Vault --interval 2
+python watchers/filesystem_watcher.py AI_Employee_Vault
 ```
 
-### Orchestrator Can't Find Vault
-
+**Silver Tier:**
 ```bash
-# Use absolute path
-python orchestrator.py "D:\code\Hackathon Project\Bronze-Tier--AI-Employee\AI_Employee_Vault"
+# Complete Bronze setup first, then:
+pip install google-api-python-client playwright schedule
+python watchers/gmail_watcher.py AI_Employee_Vault --authenticate
+python watchers/linkedin_watcher.py AI_Employee_Vault --setup-session
 ```
 
-### Qwen Code Not Processing Files
-
-1. Ensure you're in the vault directory: `cd AI_Employee_Vault`
-2. Check file permissions
-3. Verify Qwen Code subscription is active
-
-### Dashboard Not Updating
-
+**Gold Tier:**
 ```bash
-# Force update
-python orchestrator.py AI_Employee_Vault --update-dashboard
-
-# Check for errors in Logs folder
-cat AI_Employee_Vault/Logs/*.log
+# Complete Silver setup first, then:
+pip install facebook-business tweepy
+docker-compose up -d odoo postgres
+# Configure .env with your API credentials
 ```
 
----
+### Step 4: Start Using
 
-## 🎯 Next Steps (Silver Tier Upgrades)
-
-Once you've mastered the Bronze Tier, consider adding:
-
-1. **Gmail Watcher** - Monitor Gmail for important emails
-2. **WhatsApp Watcher** - Use Playwright to monitor WhatsApp Web
-3. **MCP Servers** - Enable Claude to send emails, make payments
-4. **Scheduled Tasks** - Use cron/Task Scheduler for daily briefings
-5. **Human-in-the-Loop** - Full approval workflow for sensitive actions
+1. **Open Obsidian** → Load `AI_Employee_Vault` folder
+2. **Check Dashboard.md** for status
+3. **Drop files** in `Inbox/Drop/` for processing
+4. **Review** `Needs_Action/` folder regularly
+5. **Approve** actions by moving files to `Approved/`
 
 ---
 
-## 📚 Resources
+## 📚 Documentation
 
-- **Full Hackathon Blueprint**: `Personal AI Employee Hackathon 0_ Building Autonomous FTEs in 2026.md`
-- **Agent Skills Docs**: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
-- **Obsidian Help**: https://help.obsidian.md
-- **Qwen Code Docs**: https://github.com/anthropics/claude-code
+### Tier-Specific Guides
+
+| Tier | Guide | Description |
+|------|-------|-------------|
+| 🥉 Bronze | `README.md` (this file) | Basic setup & usage |
+| 🥈 Silver | `SILVER_TIER.md` | Silver Tier guide |
+| 🥈 Silver | `SILVER_TIER_GMAIL_LINKEDIN.md` | Gmail + LinkedIn setup |
+| 🥇 Gold | `GOLD_TIER.md` | Gold Tier complete guide |
+| 🥇 Gold | `FACEBOOK_COMPLETE_GUIDE.md` | Facebook integration |
+| 🥇 Gold | `AUTO_RESPONSE_GUIDE.md` | Auto-response system |
+| 🥇 Gold | `ODOO_SETUP.md` | Odoo ERP setup |
+| 🥇 Gold | `GITHUB_PUSH_GUIDE.md` | Push to GitHub guide |
+
+### Quick Reference
+
+| Topic | File |
+|-------|------|
+| Security Audit | `SECURITY_REPORT.md` |
+| Facebook Setup | `FACEBOOK_SETUP.md` |
+| Facebook Workflow | `FACEBOOK_WORKFLOW.md` |
+| Facebook Reply Guide | `FACEBOOK_REPLY_GUIDE.md` |
+| Facebook Troubleshooting | `FACEBOOK_WATCHER_FIX.md` |
+| Token Debugging | `fix_facebook_token.py` |
+| Cleanup Script | `cleanup_security.bat` |
 
 ---
 
-## 🤝 Weekly Meetings
+## 🤝 Resources & Meetings
+
+### Hackathon Blueprint
+
+- **Full Document:** `Personal AI Employee Hackathon 0_ Building Autonomous FTEs in 2026.md`
+- **Agent Skills Docs:** https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
+- **Ralph Wiggum Pattern:** https://github.com/anthropics/claude-code/tree/main/.claude/plugins/ralph-wiggum
+
+### Weekly Meetings
 
 Join the Personal AI Employee research meetings:
 
-- **When**: Wednesdays 10:00 PM PKT
-- **Zoom**: [Link in hackathon doc](Personal AI Employee Hackathon 0_ Building Autonomous FTEs in 2026.md)
-- **YouTube**: https://www.youtube.com/@panaversity
+- **When:** Wednesdays 10:00 PM PKT
+- **Zoom:** [Link in hackathon doc](Personal AI Employee Hackathon 0_ Building Autonomous FTEs in 2026.md)
+- **YouTube:** https://www.youtube.com/@panaversity
+
+### Learning Resources
+
+| Topic | Resource |
+|-------|----------|
+| Claude Code Fundamentals | [Textbook Chapter](https://agentfactory.panaversity.org/docs/AI-Tool-Landscape/claude-code-features-and-workflows) |
+| Obsidian Fundamentals | [Official Help](https://help.obsidian.md) |
+| Facebook Graph API | [Developer Docs](https://developers.facebook.com/docs/graph-api) |
+| Odoo ERP | [Official Docs](https://www.odoo.com/documentation) |
+| Docker Compose | [Official Docs](https://docs.docker.com/compose/) |
+
+---
+
+## 🏆 Hackathon Tiers
+
+### Submission Requirements
+
+- ✅ GitHub repository (public or private)
+- ✅ README.md with setup instructions
+- ✅ Demo video (5-10 minutes)
+- ✅ Security disclosure
+- ✅ Tier declaration
+
+### Judging Criteria
+
+| Criterion | Weight |
+|-----------|--------|
+| Functionality | 30% |
+| Innovation | 25% |
+| Practicality | 20% |
+| Security | 15% |
+| Documentation | 10% |
 
 ---
 
@@ -362,4 +483,19 @@ This project is part of the Personal AI Employee Hackathon. Share and build upon
 
 ---
 
+## 🌟 Ready to Build Your AI Employee?
+
+**Choose your tier and start building!**
+
+- 🥉 **Bronze:** Perfect for learning the basics
+- 🥈 **Silver:** Great for email & social media automation
+- 🥇 **Gold:** Complete business automation with ERP integration
+
+**Good luck with your hackathon!** 🚀🎉
+
+---
+
 *Built with ❤️ for the future of autonomous work*
+
+**Last Updated:** 2026-03-14  
+**Status:** ✅ Gold Tier Complete
