@@ -1,27 +1,28 @@
+# =============================================================================
+# AI Employee - Comprehensive .gitignore
+# =============================================================================
+# This file ensures no sensitive data, credentials, or large binary files
+# are accidentally committed to the repository.
+# =============================================================================
+
+# =============================================================================
+# PYTHON & DEVELOPMENT
+# =============================================================================
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+*.egg-info/
+.eggs/
+*.egg
+
+# Virtual environments
 env/
 venv/
 ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+.venv/
 
 # IDE
 .vscode/
@@ -29,71 +30,335 @@ wheels/
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# ===========================================
+# Build artifacts
+build/
+dist/
+downloads/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg
+.installed.cfg
+*.egg-info
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# =============================================================================
 # SENSITIVE FILES - NEVER COMMIT THESE
-# ===========================================
+# =============================================================================
+
+# Environment Variables (CONTAINS SECRETS)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
 
 # Google OAuth Credentials
 credentials.json
 token.json
-*.json containing credentials
+client_secret.json
+service_account.json
+*_credentials.json
+*_credential.json
+google_credentials.json
 
-# AI Employee Vault - Sensitive
+# Facebook/Meta Credentials
+.facebook_token
+.fb_access_token
+instagram_access_token
+
+# Twitter/X Credentials
+.twitter_token
+.twitter_credentials
+twitter_*.json
+
+# LinkedIn Credentials
+.linkedin_token
+.linkedin_credentials
+linkedin_*.json
+
+# Generic API Keys
+*_key.json
+*_keys.json
+*_secret.json
+*_secrets.json
+*_api_key.json
+*_api_secret.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Database Files
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+
+# =============================================================================
+# AI EMPLOYEE VAULT - SENSITIVE FOLDERS
+# =============================================================================
+
+# Session Data (Contains Login Cookies & Tokens)
 AI_Employee_Vault/token.json
 AI_Employee_Vault/linkedin_session/
 AI_Employee_Vault/whatsapp_session/
+AI_Employee_Vault/facebook_session/
+AI_Employee_Vault/twitter_session/
+AI_Employee_Vault/google_session/
+AI_Employee_Vault/browser_session/
+AI_Employee_Vault/*_session/
+
+# Logs (May Contain Sensitive Data)
 AI_Employee_Vault/Logs/
+AI_Employee_Vault/*.log
+AI_Employee_Vault/**/*.log
+
+# Active Processing Folders (Contain Raw Data)
 AI_Employee_Vault/Inbox/
 AI_Employee_Vault/Needs_Action/
 AI_Employee_Vault/Pending_Approval/
 AI_Employee_Vault/Approved/
 AI_Employee_Vault/Rejected/
+AI_Employee_Vault/In_Progress/
 
-# Environment Variables
-.env
-.env.local
-.env.production
-*.env
+# Processed IDs (Tracking Files)
+AI_Employee_Vault/*_processed_ids.json
+AI_Employee_Vault/processed_*.json
 
-# API Keys
-*_key.json
-*_secret.json
-*_credentials.json
+# =============================================================================
+# AI EMPLOYEE VAULT - COMMIT THESE (Structure & Templates)
+# =============================================================================
+# Keep these tracked for structure:
+# AI_Employee_Vault/Dashboard.md
+# AI_Employee_Vault/Company_Handbook.md
+# AI_Employee_Vault/Business_Goals.md
+# AI_Employee_Vault/Templates/
+# AI_Employee_Vault/Done/ (completed items - optional)
+# AI_Employee_Vault/Briefings/ (sanitized versions)
+# AI_Employee_Vault/Plans/ (approved plans - sanitized)
+# AI_Employee_Vault/Accounting/ (sanitized reports)
+# AI_Employee_Vault/Invoices/ (templates only)
+# AI_Employee_Vault/Customers/ (templates only)
 
-# Logs
+# =============================================================================
+# ODOO & DOCKER
+# =============================================================================
+
+# Odoo Data (Contains Database Files)
+odoo/
+odoo-data/
+*.odoo
+
+# PostgreSQL Data
+postgres/
+postgres-data/
+*.postgres
+
+# PGAdmin Data
+pgadmin/
+pgadmin-data/
+
+# Docker
+docker-compose.override.yml
+.docker/
+*.docker
+
+# Docker volumes (if using local directories)
+# Note: Named volumes are managed by Docker, not git
+
+# =============================================================================
+# LOGS & CACHE
+# =============================================================================
+
+# Application Logs
 *.log
 logs/
+log/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Temporary files
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.cache
+
+# Temporary Files
 tmp/
 temp/
+.tmp/
+.temp/
 *.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# =============================================================================
+# SCREENSHOTS & DEBUGGING
+# =============================================================================
 
 # Screenshots (from debugging)
 *.png
 *.jpg
 *.jpeg
+*.gif
+*.bmp
+*.webp
 !README_*.png
+!docs/*.png
+!assets/*.png
 
-# Test files
+# =============================================================================
+# TEST FILES
+# =============================================================================
+
+# Test files with sensitive data
 test_*.md
 TEST_*.md
+test_*.json
+test_*.yaml
+test_*.yml
+*_test.md
+*_test.json
 
-# ===========================================
-# FILES TO COMMIT (Vault Structure)
-# ===========================================
-# Keep these tracked for structure:
-# - AI_Employee_Vault/Dashboard.md
-# - AI_Employee_Vault/Company_Handbook.md
-# - AI_Employee_Vault/Business_Goals.md
-# - AI_Employee_Vault/Templates/
-# - AI_Employee_Vault/Done/ (completed items)
-# - AI_Employee_Vault/Briefings/
-# - AI_Employee_Vault/Plans/ (approved plans)
-# - AI_Employee_Vault/Accounting/
-# - AI_Employee_Vault/Invoices/
+# =============================================================================
+# NODE.JS & NPM
+# =============================================================================
+
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn
+.yarn-integrity
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# =============================================================================
+# GIT & VERSION CONTROL
+# =============================================================================
+
+# Git
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+
+# SVN
+.svn/
+
+# Mercurial
+.hg/
+
+# =============================================================================
+# CI/CD & DEPLOYMENT
+# =============================================================================
+
+# Travis CI
+.travis.yml
+
+# CircleCI
+.circleci/
+
+# GitHub Actions
+.github/workflows/
+
+# GitLab CI
+.gitlab-ci.yml
+
+# AppVeyor
+.appveyor.yml
+
+# Codeship
+codeship.yml
+
+# =============================================================================
+# DOCUMENTATION & BACKUPS
+# =============================================================================
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+*.save
+
+# Personal notes
+NOTES.md
+notes.md
+TODO.md
+todo.md
+
+# =============================================================================
+# LARGE FILES (Prevent Accidental Commits)
+# =============================================================================
+
+# Video files
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Audio files
+*.mp3
+*.wav
+*.aac
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# =============================================================================
+# END OF .GITIGNORE
+# =============================================================================
